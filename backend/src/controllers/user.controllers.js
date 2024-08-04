@@ -38,12 +38,18 @@ const loginUser = AsyncHandle(async(req,res)=>{
     }
     const user = await User.findOne({email});
     if (!user) {
+        res.status(401)
         throw new Error("User Does not exists")
     }
     const isPassValid = await user.isPassCorrect(password)
     if(!isPassValid){
+        res
+        .status(401)
+        .json("incorrect password")
         throw new Error("Incorrect PassWord")
+       
     }
+    console.log("login successful")
     res
     .status(200)
     .json("User Login successful")
