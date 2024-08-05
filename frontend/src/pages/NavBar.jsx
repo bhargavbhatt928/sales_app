@@ -2,12 +2,11 @@ import { Disclosure, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/r
 import { Bars3Icon} from '@heroicons/react/24/outline'
 const navigationItem =[
     {name:"SALES APP", href:"/"},
-    {name:"ADD SALES", href:"/addsales"},
-    {name:"TOP 5 SALES", href:"/topsales"},
-    {name:"TODAY'S TOTAL REVENUE",href:"/toprevenue"},
+    {name:"ADD SALES", href:"/addSales"},
+    {name:"TOP 5 SALES", href:"/topSales"},
+    {name:"TODAY'S TOTAL REVENUE",href:"/totalRevenue"},
     {name:"LOGIN", href:"/login"},
-    {name:"REGISTER", href:"/"},
-    {name:"LOGOUT", href:"/"}
+    {name:"REGISTER", href:"/"}
   ]
   
 const NavBar = () => {
@@ -31,17 +30,17 @@ const NavBar = () => {
       </div>
      <MenuItems transition className="flex flex-col space-y-6">
       <MenuItem>
-      <a href="/addsales">
+      <a href="/addSales">
        ADD SALES
       </a>
       </MenuItem>
       <MenuItem>
-      <a href="/topsales">
+      <a href="/topSales">
        TOP 5 SALES
       </a>
       </MenuItem>
       <MenuItem>
-      <a href="/toprevenue">
+      <a href="/totalRevenue">
        TODAY'S TOTAL REVENUE
       </a>
       </MenuItem>
@@ -53,11 +52,6 @@ const NavBar = () => {
       <MenuItem>
       <a href="/">
        REGISTER
-      </a>
-      </MenuItem>
-      <MenuItem>
-      <a href="/">
-       LOGOUT
       </a>
       </MenuItem>
      

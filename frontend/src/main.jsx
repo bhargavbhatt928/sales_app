@@ -24,15 +24,15 @@ const appRouter = createBrowserRouter([
         element:<Login />
       },
       {
-        path: "/addsales",
+        path: "/addSales",
         element: <AddSales />,
       },
       {
-        path:"/topsales",
+        path:"/topSales",
         element:<TopSales />
       },
       {
-        path:"/toprevenue",
+        path:"/totalRevenue",
         element:<TopRevenue />
       }
     ],
