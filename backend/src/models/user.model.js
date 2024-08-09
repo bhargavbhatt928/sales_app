@@ -1,6 +1,6 @@
 import mongoose,{Schema} from "mongoose";
 import bcrypt from "bcrypt"
-
+import jwt from "jsonwebtoken"
 
 const userSchema=new Schema({
    firstName: {
@@ -31,6 +31,21 @@ userSchema.pre("save", async function(next){
     this.password = await bcrypt.hash(this.password, 10);
     next();
 });
+
+
+userSchema.methods.AccessToken = function(){
+   return jwt.sign({
+        _id:this._id,
+        firstName:this.firstName,
+        lastName:this.lastName,
+        email:this.email
+    },
+     process.env.ACCESS_TOKEN_KEY,
+     {
+        expiresIn:process.env.ACCESS_TOKEN_EXPIRY
+     }
+)
+}
 
 /**
  * Check if the provided password matches the hashed password stored in the user document.

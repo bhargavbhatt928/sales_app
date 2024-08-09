@@ -1,5 +1,18 @@
 import {User} from "../models/user.model.js"
 import {AsyncHandle} from "../utils/AsyncHandle.js"
+import { ApiResponse } from "../utils/ApiResponse.js"
+
+const generateAccessToken = async(userId)=>{
+      try {
+        const user = await User.findById(userId)
+        const accessToken = user.AccessToken()
+        console.log(accessToken);
+        await user.save({ validateBeforeSave: false })
+        return {accessToken}
+      } catch (error) {
+        throw new Error("Error occurred while generating access token")
+      }
+}
 
 const registerUser =AsyncHandle(async(req,res)=>{
     const {firstName, lastName, email, password}=req.body
@@ -31,6 +44,8 @@ res
 
 })
 
+
+
 const loginUser = AsyncHandle(async(req,res)=>{
     const {email, password}=req.body;
     if(!(email||password)){
@@ -38,7 +53,7 @@ const loginUser = AsyncHandle(async(req,res)=>{
     }
     const user = await User.findOne({email});
     if (!user) {
-        res.status(401)
+        res.status(404)
         throw new Error("User Does not exists")
     }
     const isPassValid = await user.isPassCorrect(password)
@@ -49,14 +64,40 @@ const loginUser = AsyncHandle(async(req,res)=>{
         throw new Error("Incorrect PassWord")
        
     }
-    console.log("login successful")
+    const {accessToken} = await generateAccessToken(user._id)
+    const loggedIn = await User.findById(user._id)
+    const securityFlags ={
+        httpOnly:true,
+        secure:true
+    }
     res
     .status(200)
-    .json("User Login successful")
+    .cookie("accessToken", accessToken, securityFlags)
+    .json(
+        new ApiResponse(
+            200,
+            {
+                user:loggedIn, accessToken
+            },
+            "user logged in"
+        )
+    )
+  
     
+})
+const logOutUser =AsyncHandle(async(req,res)=>{
+    const securityFlags ={
+        httpOnly:true,
+        secure:true
+    }
+    res
+    .status(200)
+    .clearCookie("accessToken", securityFlags)
+    .json("User logged Out")
 })
 export 
 {
     registerUser,
-    loginUser
+    loginUser,
+    logOutUser
 }

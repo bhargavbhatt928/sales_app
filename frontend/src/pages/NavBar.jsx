@@ -6,7 +6,8 @@ const navigationItem =[
     {name:"TOP 5 SALES", href:"/topSales"},
     {name:"TODAY'S TOTAL REVENUE",href:"/totalRevenue"},
     {name:"LOGIN", href:"/login"},
-    {name:"REGISTER", href:"/"}
+    {name:"REGISTER", href:"/"},
+    {name:"LOGOUT", href:"/logout"}
   ]
   
 const NavBar = () => {
@@ -45,7 +46,7 @@ const NavBar = () => {
       </a>
       </MenuItem>
       <MenuItem>
-      <a href="/login">
+      <a href="/logout">
        LOGIN
       </a>
       </MenuItem>
@@ -54,7 +55,11 @@ const NavBar = () => {
        REGISTER
       </a>
       </MenuItem>
-     
+      <MenuItem>
+      <a href="/logout">
+       LOGOUT
+      </a>
+      </MenuItem>
      </MenuItems>
    
    

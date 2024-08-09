@@ -8,7 +8,7 @@ import Register from "./pages/Register.jsx"
 import TopSales from "./pages/TopSales.jsx"
 import TopRevenue from "./pages/TotalRevenue.jsx"
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
+import { Logout } from "./pages/Logout.jsx";
 const appRouter = createBrowserRouter([
   {
     path: "/",
@@ -34,6 +34,10 @@ const appRouter = createBrowserRouter([
       {
         path:"/totalRevenue",
         element:<TopRevenue />
+      },
+      {
+        path:"/logout",
+        element:<Logout />
       }
     ],
   },
